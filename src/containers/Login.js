@@ -22,7 +22,8 @@ class Login extends React.Component {
                     };
 
                     document.cookie = 'key=' + btoa(JSON.stringify(loginData));
-
+                    document.cookie="user="+id;
+					console.log(id);
                     Materialize.toast('Welcome ' + id + '!', 2000);
                     browserHistory.push('/home');
                     return true;

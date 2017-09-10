@@ -11,6 +11,8 @@ import mongoose from 'mongoose';
 import session from 'express-session';
 
 import api from './routes';
+import socket from 'socket.io';
+
 
 
 const app = express();
@@ -49,9 +51,31 @@ app.use(function(err, req, res, next) {
   res.status(500).send('Something broke!');
 });
 
-app.listen(port, () => {
+var server=app.listen(port, () => {
     console.log('Express is listening on port', port);
 });
+
+//Socket work start hare
+
+var io=socket(server);
+io.on('connection',function(socket){
+	console.log('made socket connection',socket.id);
+	
+	socket.on('chat',function(data){
+
+		if(data.message.trim().toLowerCase()=="hi"){
+			data.reply="Hi How are you dude ?";
+		}
+		io.sockets.emit('chat',data)
+	})
+	
+	socket.on('typing',function(data){
+		console.log("data",data);
+		socket.broadcast.emit('typing',data);
+	})
+})
+
+//socket work ends hare
 
 if(process.env.NODE_ENV == 'development') {
     console.log('Server is running on development mode');

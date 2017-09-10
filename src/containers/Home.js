@@ -8,14 +8,40 @@ class Home extends React.Component {
         this.state = {
             loadingState: false,
             initiallyLoaded: false
+			
         };
+		this.handleMessage = this.handleMessage.bind(this);
     }
-
+		handleMessage(){
+			
+			console.log($("#message").val());
+			
+		}
   
     render() {
        
         return (
             <div className="wrapper">
+			<div id="simple-chat">
+					 <div className="chat">
+					  <div className="chat-title">
+						<h5>Ask Any Questions</h5>
+						<figure className="avatar">
+						  <img src="" alt="profilepic"/></figure>
+					  </div>
+					  <div className="messages">
+						<div className="messages-content" id="handle"></div>
+						<div id="feedback"></div>
+					  </div>
+					  <div className="message-box">
+					    <input id="user-name" type="hidden" value="" />
+						<textarea type="text" id="message" className="message-input" placeholder="Type message..."></textarea>
+						<button id="send" className="message-submit" onClick={this.handleMessage}>Send</button>
+					  </div>
+
+					</div>
+					<div className="bg"></div>
+					</div>
             </div>
         );
     }
